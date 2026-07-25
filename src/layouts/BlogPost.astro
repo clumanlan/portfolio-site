@@ -47,7 +47,22 @@ const { title, date, description, tags } = Astro.props;
   </div>
 </Base>
 
-<style>
+<style is:global>
+  /* Headings attach to the content below, not float in the middle */
+  .prose :is(h2, h3, h4) {
+    margin-bottom: 0.25em !important;
+    margin-top: 2em !important;
+  }
+
+  .prose :is(h2, h3, h4):first-child {
+    margin-top: 0 !important;
+  }
+
+  /* Kill the paragraph top margin immediately after a heading */
+  .prose :is(h2, h3, h4) + p {
+    margin-top: 0 !important;
+  }
+
   /* Full-width D3 breakout — escapes the narrow prose column */
   .full-bleed {
     width: 100vw;
