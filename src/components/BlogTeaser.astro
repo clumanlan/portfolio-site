@@ -1,0 +1,53 @@
+---
+interface Post {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  tags: string[];
+}
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section>
+  <div class="flex items-baseline justify-between mb-6">
+    <h2 class="font-heading text-2xl font-semibold text-gray-900">Writing</h2>
+    {posts.length > 0 && (
+      <a href="/blog" class="text-sm text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors">
+        All posts →
+      </a>
+    )}
+  </div>
+
+  {posts.length === 0 ? (
+    <p class="text-gray-500 text-sm">Posts coming soon.</p>
+  ) : (
+    <ul class="space-y-6">
+      {posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.slug}`} class="group block">
+            <div class="flex items-baseline gap-3 mb-1">
+              <span class="text-xs text-gray-400">{post.date}</span>
+            </div>
+            <h3 class="font-medium text-gray-900 group-hover:text-[var(--color-accent)] transition-colors mb-1">
+              {post.title}
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{post.description}</p>
+            <div class="flex flex-wrap gap-1.5 mt-2">
+              {post.tags.map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>

@@ -1,0 +1,23 @@
+---
+const { pathname } = Astro.url;
+---
+
+<nav class="flex items-center justify-between px-6 py-4 border-b border-gray-100 max-w-5xl mx-auto">
+  <a href="/" class="font-heading text-lg font-semibold text-black hover:text-black">
+    Carlyle Lumanlan
+  </a>
+  <div class="flex items-center gap-6">
+    <a
+      href="/#projects"
+      class:list={["text-sm font-medium transition-colors", pathname === "/" ? "text-[var(--color-accent)]" : "text-gray-600 hover:text-[var(--color-accent)]"]}
+    >
+      Projects
+    </a>
+    <a
+      href="/blog"
+      class:list={["text-sm font-medium transition-colors", pathname.startsWith("/blog") ? "text-[var(--color-accent)]" : "text-gray-600 hover:text-[var(--color-accent)]"]}
+    >
+      Blog
+    </a>
+  </div>
+</nav>

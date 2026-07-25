@@ -36,7 +36,7 @@ No /about page. No /projects page. Homepage is the landing and the launchpad.
 | Body font | Inter | Clean, readable, universal |
 | Accent color | Dark mint `#1a7a5e` | Grounded, uncommon, pairs well with Fraunces; tag bg `#e0f5ec` |
 | Color mode | Light only | D3 visualizations render in a known context |
-| Nav | Minimal top bar — name (black) left, Projects + Blog right; GitHub + LinkedIn in footer bottom right | Clean, lets content lead |
+| Nav | Minimal top bar — name (black) left, Projects + Blog right; GitHub + LinkedIn links in footer | Clean, lets content lead |
 | Homepage hero | Name + tagline only, straight into content | No fluff |
 | Blog post layout | Narrow text column, D3 components break to full width | Readable prose, full-canvas viz |
 | TOC | Sticky left on blog posts | Makes long D3 posts navigable |
@@ -164,7 +164,7 @@ For full-width D3 breakouts, wrap in a class that the BlogPost layout targets:
 - [ ] `pnpm create astro@latest` with TypeScript strict template
 - [ ] Install integrations: `@astrojs/mdx`, `@astrojs/react`, `@astrojs/tailwind`
 - [ ] Global CSS: mint accent vars (`--accent`, `--accent-mid`, `--accent-dark`), Fraunces + Inter via Google Fonts
-- [ ] `Nav.astro` — name left, links right (Blog, GitHub, LinkedIn)
+- [ ] `Nav.astro` — name left, Projects + Blog right; GitHub + LinkedIn in footer
 - [ ] `Base.astro` layout
 - [ ] Homepage (`index.astro`): hero tagline, `ProjectCard.astro`, `BlogTeaser.astro` (empty state: "Posts coming soon")
 - [ ] Content collection schemas (`src/content/config.ts`)
