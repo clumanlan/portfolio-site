@@ -1,23 +1,27 @@
 ---
 const { pathname } = Astro.url;
+const MINT = '#1a7a5e';
+const isHome = pathname === '/';
+const isBlog = pathname.startsWith('/blog');
 ---
 
-<nav class="flex items-center justify-between px-6 py-4 border-b border-gray-100 max-w-5xl mx-auto">
-  <a href="/" class="font-heading text-lg font-semibold text-black hover:text-black">
-    Carlyle Lumanlan
-  </a>
-  <div class="flex items-center gap-6">
-    <a
-      href="/#projects"
-      class:list={["text-sm font-medium transition-colors", pathname === "/" ? "text-[var(--color-accent)]" : "text-gray-600 hover:text-[var(--color-accent)]"]}
-    >
-      Projects
-    </a>
-    <a
-      href="/blog"
-      class:list={["text-sm font-medium transition-colors", pathname.startsWith("/blog") ? "text-[var(--color-accent)]" : "text-gray-600 hover:text-[var(--color-accent)]"]}
-    >
-      Blog
-    </a>
-  </div>
-</nav>
+<header class="w-full border-b border-gray-100">
+  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center">
+    <div class="ml-auto flex items-center gap-6">
+      <a
+        href="/#projects"
+        class="text-sm font-medium transition-colors"
+        style={`color: ${isHome ? MINT : '#000'}`}
+      >
+        Projects
+      </a>
+      <a
+        href="/blog"
+        class="text-sm font-medium transition-colors"
+        style={`color: ${isBlog ? MINT : '#000'}`}
+      >
+        Blog
+      </a>
+    </div>
+  </nav>
+</header>
