@@ -12,7 +12,7 @@ interface Props {
 const { title, date, description, tags } = Astro.props;
 ---
 
-<Base title={`${title} — Carlyle Lumanlan`} description={description}>
+<Base title={`${title} — Carlyle Lumanlan`} description={description} ogType="article">
   <div class="relative">
     <!-- TOC: sticky left column on large screens -->
     <aside class="hidden xl:block absolute right-full pr-10 top-0 w-52">

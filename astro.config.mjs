@@ -5,9 +5,12 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), react()],
+  site: 'https://clumanlan.vercel.app',
+  integrations: [mdx(), react(), sitemap()],
 
   vite: {
     plugins: [tailwindcss()],
