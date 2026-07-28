@@ -7,12 +7,12 @@
 Personal portfolio and blog for Carlyle Lumanlan — data scientist transitioning into ML engineering. One project showcase, a D3-powered blog, built to be extended over time.
 
 - **URL**: clumanlan.com (Vercel, auto-deploys from main)
-- **Repo**: github.com/clumanlan/portfolio
+- **Repo**: github.com/clumanlan/portfolio-site
 
 ## Stack
 
-- **Framework**: Astro + TypeScript
-- **Styling**: Tailwind CSS
+- **Framework**: Astro 7 + TypeScript strict
+- **Styling**: Tailwind CSS v4
 - **Blog**: MDX with co-located D3 components
 - **Hosting**: Vercel
 
@@ -22,13 +22,13 @@ Personal portfolio and blog for Carlyle Lumanlan — data scientist transitionin
 - **Body font**: Inter (Google Fonts)
 - **Accent color**: Dark mint — `#1a7a5e` (links, active nav, tags, hover states); tag background `#e0f5ec`
 - **Mode**: Light only
-- **Nav**: Minimal top bar — name (black) left, Projects + Blog right; GitHub + LinkedIn in footer bottom right
+- **Nav**: Projects + Blog right only — no name in nav (name lives in hero h1); GitHub + LinkedIn in footer
 - **No dark mode, no logo, no decorative elements**
 
 ## Site structure
 
 ```
-/                  → hero + project card + blog teaser
+/                  → hero (name + tagline) + project card
 /blog              → filterable post list (filter by tag, client-side)
 /blog/[slug]       → MDX post, sticky TOC left, narrow text column, D3 breaks to full width
 ```
@@ -36,6 +36,8 @@ Personal portfolio and blog for Carlyle Lumanlan — data scientist transitionin
 No /about page. No /projects page. Everything lives on the homepage.
 
 ## Content collections (src/content/)
+
+Config lives at `src/content.config.ts` (Astro v7 — NOT `src/content/config.ts`). Uses glob loaders.
 
 ### Blog posts — src/content/blog/[slug]/
 Each post is a folder containing:
@@ -82,46 +84,41 @@ import Chart from '@blog/my-post-title/Chart.tsx'
 <Chart client:load />
 ```
 
-D3 vizualizations must be responsive — use `ResizeObserver` or `useEffect` with a ref, never hardcode width/height.
+For full-width D3 breakouts:
+```mdx
+<div class="full-bleed">
+  <Chart client:load />
+</div>
+```
+
+D3 visualizations must be responsive — use `ResizeObserver` or `useEffect` with a ref, never hardcode width/height.
 
 ## Homepage project card
 
 The single featured project (MLB Baseball System) displays:
-- Title
-- Short description
-- Tech stack tags: Python, NGBoost, PyTorch, AWS SageMaker, S3, Feature Store
-- Links: GitHub (`https://github.com/clumanlan/mlb-system`) and Demo (`https://mlb-demo.vercel.app`)
+- Title, description, tech stack tags, GitHub link
 - `featured: true` in frontmatter drives inclusion — no hardcoding
+- Demo URL is a placeholder — update `src/content/projects/mlb-baseball.md` when ready
 
 ## Blog filtering
 
 Client-side only — no server, no API. Tags from frontmatter drive the filter UI. Active tag highlights in mint. "All" is the default state.
 
-## Current phase
+## Current status
 
-**Phase 1 — Foundation** (implement this first)
-- Astro project scaffolded with TypeScript + Tailwind + MDX
-- Google Fonts loaded (Fraunces + Inter)
-- Mint accent CSS variables defined in global styles
-- Minimal top nav component
-- Homepage with hero, project card, blog teaser section
-- Content collection schemas defined and validated
-- Deployed to Vercel
+**v1 complete** — all four phases shipped and live at clumanlan.com.
 
-Kill criteria: if Astro + MDX + D3 island hydration can't be made to work cleanly, evaluate Next.js + MDX as fallback before proceeding.
-
-## Planned phases
-
-- **Phase 2 — Blog**: /blog list page with tag filtering, /blog/[slug] post page with sticky TOC, full-width D3 breakout, new-post scaffold script
-- **Phase 3 — First post**: one real D3 blog post end-to-end to validate the workflow
-- **Phase 4 — Polish**: typography refinement, spacing pass, meta tags, OG images, sitemap
+- Phase 1 ✅ Foundation
+- Phase 2 ✅ Blog
+- Phase 3 ✅ First post (NGBoost — point predictions vs probability distributions)
+- Phase 4 ✅ Polish (meta tags, sitemap, favicon, typography)
+- Domain ✅ clumanlan.com
 
 ## Deliberately deferred
 
 - Dark mode
 - /about page
 - CMS (all content is MDX files for now)
-- Custom domain (swap in via Vercel dashboard, zero code change)
 - Multiple projects (add more cards when ready, schema already supports it)
 - Search
 - Comments
