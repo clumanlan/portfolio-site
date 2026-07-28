@@ -75,9 +75,10 @@ This scaffolds:
 - `src/content/blog/my-post-title/index.mdx` with frontmatter pre-filled
 - `src/content/blog/my-post-title/Chart.tsx` as the D3 component starter
 
-D3 components are Astro islands — always include `client:load` when importing in MDX:
+D3 components are Astro islands — always include `client:load` when importing in MDX.
+Use the `@blog` alias (not a relative path — Astro v7's content layer can't resolve those):
 ```mdx
-import Chart from './Chart.tsx'
+import Chart from '@blog/my-post-title/Chart.tsx'
 <Chart client:load />
 ```
 

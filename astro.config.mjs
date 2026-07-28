@@ -10,6 +10,11 @@ export default defineConfig({
   integrations: [mdx(), react()],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@blog': new URL('./src/content/blog', import.meta.url).pathname,
+      },
+    },
   }
 });
