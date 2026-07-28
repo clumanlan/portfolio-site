@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://clumanlan.vercel.app',
+  site: 'https://clumanlan.com',
   integrations: [mdx(), react(), sitemap()],
 
   vite: {

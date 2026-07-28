@@ -2,7 +2,7 @@
 
 Personal portfolio and technical blog. Built to showcase full-stack ML engineering work and document learning through D3-powered interactive posts.
 
-**Live**: clumanlan.vercel.app
+**Live**: clumanlan.com
 
 ---
 
@@ -192,7 +192,7 @@ Kill criteria: if MDX + React island hydration produces layout issues with the f
 
 ### Definition of done
 
-Phase 1 is done when the homepage loads on clumanlan.vercel.app with the hero, project card, and blog teaser visible, and a push to `main` triggers an auto-deploy.
+Phase 1 is done when the homepage loads on clumanlan.com with the hero, project card, and blog teaser visible, and a push to `main` triggers an auto-deploy.
 
 The site is "v1 complete" when one real D3 blog post is live and the scaffold workflow is proven end-to-end (end of Phase 3).
 

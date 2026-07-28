@@ -6,7 +6,7 @@
 
 Personal portfolio and blog for Carlyle Lumanlan — data scientist transitioning into ML engineering. One project showcase, a D3-powered blog, built to be extended over time.
 
-- **URL**: clumanlan.vercel.app (Vercel, auto-deploys from main)
+- **URL**: clumanlan.com (Vercel, auto-deploys from main)
 - **Repo**: github.com/clumanlan/portfolio
 
 ## Stack
