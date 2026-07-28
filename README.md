@@ -8,9 +8,8 @@ Personal portfolio and technical blog. Built to showcase full-stack ML engineeri
 
 ## Why [frozen]
 
-**End goal**: A minimal, high-taste portfolio that positions Carlyle's DS→MLE transition through one strong project and a growing body of technical writing — making the site itself evidence of the engineering capability it claims.
+**End goal**: A minimal, high-taste portfolio that documents programming journey through projects and a growing body of technical writing.
 
-**What this is not**: A resume site. Not a list of skills. The project and blog posts do the talking.
 
 **Why this stack**: Astro renders static by default (fast, cheap), MDX lets D3 components live inside blog posts without friction, and the Claude Code workflow (scaffold → write → deploy) needs zero CMS overhead.
 
