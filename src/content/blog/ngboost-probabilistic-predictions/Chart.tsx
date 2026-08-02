@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-const MINT = '#1a7a5e';
-const MINT_BG = '#e0f5ec';
+const TEAL = '#2E5C57';
+const TEAL_BG = '#E3EBE9';
+const NAVY = '#28304F';
+const INK = '#1C1F24';
+const MUTED = '#6E7168';
+const RULE = '#D8DAD3';
+const MONO = '"Space Mono", monospace';
 
 function normalPdf(x: number, mu: number, sigma: number) {
   return (1 / (sigma * Math.sqrt(2 * Math.PI))) *
@@ -57,23 +62,23 @@ export default function Chart() {
   }, [tab, stageIdx]);
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', padding: '24px 32px', background: '#fafafa', borderTop: '1px solid #e5e7eb', borderBottom: '1px solid #e5e7eb' }}>
+    <div style={{ fontFamily: 'Inter, sans-serif', padding: '24px 0' }}>
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+      <div style={{ display: 'flex', gap: 20, marginBottom: 20, borderBottom: `1px solid ${RULE}` }}>
         {(['training', 'prediction'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             style={{
-              padding: '6px 16px',
-              borderRadius: 999,
+              padding: '0 0 10px 0',
               border: 'none',
+              borderBottom: tab === t ? `2px solid ${INK}` : '2px solid transparent',
+              background: 'transparent',
               cursor: 'pointer',
               fontSize: 13,
-              fontWeight: 500,
-              background: tab === t ? MINT : '#f3f4f6',
-              color: tab === t ? '#fff' : '#374151',
-              transition: 'background 0.15s, color 0.15s',
+              fontWeight: tab === t ? 700 : 500,
+              color: tab === t ? INK : MUTED,
+              transition: 'color 0.15s, border-color 0.15s',
             }}
           >
             {t === 'training' ? 'Training (Ames Housing)' : 'Prediction (MLB Batter)'}
@@ -87,7 +92,7 @@ export default function Chart() {
       {/* Stage slider */}
       {tab === 'training' && (
         <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 12, color: '#6b7280', whiteSpace: 'nowrap' }}>
+          <span style={{ fontFamily: MONO, fontSize: 11, color: MUTED, whiteSpace: 'nowrap' }}>
             Boosting round:
           </span>
           <input
@@ -96,15 +101,24 @@ export default function Chart() {
             max={AMES_STAGES.length - 1}
             value={stageIdx}
             onChange={(e) => setStageIdx(+e.target.value)}
-            style={{ flex: 1, accentColor: MINT }}
+            style={{ flex: 1, accentColor: TEAL }}
           />
-          <span style={{ fontSize: 13, color: MINT, fontWeight: 600, minWidth: 28 }}>
+          <span style={{ fontFamily: MONO, fontSize: 12, color: TEAL, fontWeight: 700, minWidth: 28 }}>
             {AMES_STAGES[stageIdx].round}
           </span>
         </div>
       )}
     </div>
   );
+}
+
+function styleAxis(g: d3.Selection<SVGGElement, unknown, null, undefined>) {
+  g.select('.domain').attr('stroke', RULE);
+  g.selectAll('.tick line').attr('stroke', RULE);
+  g.selectAll('.tick text')
+    .attr('fill', MUTED)
+    .style('font-family', MONO)
+    .style('font-size', '10px');
 }
 
 function drawTraining(container: HTMLDivElement, stageIdx: number) {
@@ -132,52 +146,53 @@ function drawTraining(container: HTMLDivElement, stageIdx: number) {
   // Area fill
   g.append('path')
     .datum(pts)
-    .attr('fill', MINT_BG)
+    .attr('fill', TEAL_BG)
     .attr('d', d3.area<{ x: number; y: number }>()
-      .x(d => x(d.x)).y0(ih).y1(d => y(d.y)).curve(d3.curveBasis));
+      .x(d => x(d.x)).y0(ih).y1(d => y(d.y)).curve(d3.curveMonotoneX));
 
   // Curve
   g.append('path')
     .datum(pts)
     .attr('fill', 'none')
-    .attr('stroke', MINT)
+    .attr('stroke', TEAL)
     .attr('stroke-width', 2.5)
     .attr('d', d3.line<{ x: number; y: number }>()
-      .x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveBasis));
+      .x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX));
 
   // True price line
   if (TRUE_PRICE >= xMin && TRUE_PRICE <= xMax) {
     g.append('line')
       .attr('x1', x(TRUE_PRICE)).attr('x2', x(TRUE_PRICE))
       .attr('y1', 0).attr('y2', ih)
-      .attr('stroke', '#9ca3af').attr('stroke-width', 1.5)
+      .attr('stroke', MUTED).attr('stroke-width', 1.5)
       .attr('stroke-dasharray', '5 3');
     g.append('text')
       .attr('x', x(TRUE_PRICE) + 6).attr('y', 14)
-      .attr('fill', '#9ca3af').attr('font-size', 11)
+      .attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
       .text(`Actual: $${TRUE_PRICE}k`);
   }
 
   // Axes
-  g.append('g').attr('transform', `translate(0,${ih})`)
+  const axisG = g.append('g').attr('transform', `translate(0,${ih})`)
     .call(d3.axisBottom(x).ticks(6).tickFormat(d => `$${d}k`));
+  styleAxis(axisG as d3.Selection<SVGGElement, unknown, null, undefined>);
 
   g.append('text')
     .attr('x', iw / 2).attr('y', ih + 44)
-    .attr('text-anchor', 'middle').attr('fill', '#6b7280').attr('font-size', 12)
+    .attr('text-anchor', 'middle').attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text('Predicted sale price (Ames Housing)');
 
   // Title
   g.append('text')
     .attr('x', 0).attr('y', -16)
-    .attr('fill', '#374151').attr('font-size', 13).attr('font-weight', '600')
+    .attr('fill', INK).style('font-family', MONO).attr('font-size', 12).attr('font-weight', '700')
     .text('As NGBoost trains, the predicted distribution narrows');
 
   // Mean ± sigma annotation
   g.append('text')
     .attr('x', iw).attr('y', -16)
-    .attr('text-anchor', 'end').attr('fill', MINT)
-    .attr('font-size', 12).attr('font-weight', '600')
+    .attr('text-anchor', 'end').attr('fill', TEAL).style('font-family', MONO)
+    .attr('font-size', 12).attr('font-weight', '700')
     .text(`$${mu}k ± $${sigma}k`);
 }
 
@@ -213,13 +228,13 @@ function drawPrediction(container: HTMLDivElement) {
 
   gL.append('text')
     .attr('x', panelW / 2).attr('y', -26)
-    .attr('text-anchor', 'middle').attr('fill', '#374151')
-    .attr('font-size', 13).attr('font-weight', '600')
+    .attr('text-anchor', 'middle').attr('fill', INK).style('font-family', MONO)
+    .attr('font-size', 12).attr('font-weight', '700')
     .text('Standard Gradient Boosting');
 
   gL.append('text')
     .attr('x', panelW / 2).attr('y', -12)
-    .attr('text-anchor', 'middle').attr('fill', '#9ca3af').attr('font-size', 11)
+    .attr('text-anchor', 'middle').attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text('one number');
 
   const xL = d3.scaleLinear().domain(xDomain).range([0, panelW]);
@@ -227,30 +242,31 @@ function drawPrediction(container: HTMLDivElement) {
   gL.append('line')
     .attr('x1', 0).attr('x2', panelW)
     .attr('y1', ih).attr('y2', ih)
-    .attr('stroke', '#e5e7eb').attr('stroke-width', 1);
+    .attr('stroke', RULE).attr('stroke-width', 1);
 
-  gL.append('g').attr('transform', `translate(0,${ih})`)
+  const axisGL = gL.append('g').attr('transform', `translate(0,${ih})`)
     .call(d3.axisBottom(xL).ticks(5));
+  styleAxis(axisGL as d3.Selection<SVGGElement, unknown, null, undefined>);
 
   gL.append('text')
     .attr('x', panelW / 2).attr('y', ih + 44)
-    .attr('text-anchor', 'middle').attr('fill', '#6b7280').attr('font-size', 11)
+    .attr('text-anchor', 'middle').attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text('Predicted hits');
 
   // Spike
   gL.append('line')
     .attr('x1', xL(mu)).attr('x2', xL(mu))
     .attr('y1', ih).attr('y2', 30)
-    .attr('stroke', '#374151').attr('stroke-width', 3);
+    .attr('stroke', NAVY).attr('stroke-width', 3);
 
   gL.append('circle')
     .attr('cx', xL(mu)).attr('cy', 28)
-    .attr('r', 6).attr('fill', '#374151');
+    .attr('r', 6).attr('fill', NAVY);
 
   gL.append('text')
     .attr('x', xL(mu)).attr('y', 15)
-    .attr('text-anchor', 'middle').attr('fill', '#374151')
-    .attr('font-size', 13).attr('font-weight', '600')
+    .attr('text-anchor', 'middle').attr('fill', NAVY).style('font-family', MONO)
+    .attr('font-size', 12).attr('font-weight', '700')
     .text(`${mu} hits`);
 
   // --- RIGHT: NGBoost ---
@@ -258,13 +274,13 @@ function drawPrediction(container: HTMLDivElement) {
 
   gR.append('text')
     .attr('x', panelW / 2).attr('y', -26)
-    .attr('text-anchor', 'middle').attr('fill', '#374151')
-    .attr('font-size', 13).attr('font-weight', '600')
+    .attr('text-anchor', 'middle').attr('fill', INK).style('font-family', MONO)
+    .attr('font-size', 12).attr('font-weight', '700')
     .text('NGBoost');
 
   gR.append('text')
     .attr('x', panelW / 2).attr('y', -12)
-    .attr('text-anchor', 'middle').attr('fill', '#9ca3af').attr('font-size', 11)
+    .attr('text-anchor', 'middle').attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text('a full distribution');
 
   const xR = d3.scaleLinear().domain(xDomain).range([0, panelW]);
@@ -276,56 +292,57 @@ function drawPrediction(container: HTMLDivElement) {
   // Shaded P(hits >= 2)
   gR.append('path')
     .datum(pts.filter(p => p.x >= 2))
-    .attr('fill', MINT_BG)
+    .attr('fill', TEAL_BG)
     .attr('d', d3.area<{ x: number; y: number }>()
-      .x(d => xR(d.x)).y0(ih).y1(d => yS(d.y)).curve(d3.curveBasis));
+      .x(d => xR(d.x)).y0(ih).y1(d => yS(d.y)).curve(d3.curveMonotoneX));
 
   // Full curve
   gR.append('path')
     .datum(pts)
     .attr('fill', 'none')
-    .attr('stroke', MINT).attr('stroke-width', 2.5)
+    .attr('stroke', TEAL).attr('stroke-width', 2.5)
     .attr('d', d3.line<{ x: number; y: number }>()
-      .x(d => xR(d.x)).y(d => yS(d.y)).curve(d3.curveBasis));
+      .x(d => xR(d.x)).y(d => yS(d.y)).curve(d3.curveMonotoneX));
 
   // Mean dashed
   gR.append('line')
     .attr('x1', xR(mu)).attr('x2', xR(mu))
     .attr('y1', yS(yPeak)).attr('y2', ih)
-    .attr('stroke', MINT).attr('stroke-width', 1.5)
+    .attr('stroke', TEAL).attr('stroke-width', 1.5)
     .attr('stroke-dasharray', '4 3');
 
   // Threshold at 2
   gR.append('line')
     .attr('x1', xR(2)).attr('x2', xR(2))
     .attr('y1', 0).attr('y2', ih)
-    .attr('stroke', '#d1d5db').attr('stroke-width', 1)
+    .attr('stroke', RULE).attr('stroke-width', 1)
     .attr('stroke-dasharray', '3 3');
 
   // P(>=2) label
   const pAbove = (1 - normalCdf(2, mu, sigma)) * 100;
   gR.append('text')
     .attr('x', xR(3.1)).attr('y', yS(normalPdf(2.9, mu, sigma)) - 10)
-    .attr('text-anchor', 'middle').attr('fill', MINT)
-    .attr('font-size', 12).attr('font-weight', '600')
+    .attr('text-anchor', 'middle').attr('fill', TEAL).style('font-family', MONO)
+    .attr('font-size', 12).attr('font-weight', '700')
     .text(`P(≥2 hits) = ${pAbove.toFixed(0)}%`);
 
   // mu/sigma label
   gR.append('text')
     .attr('x', 4).attr('y', 14)
-    .attr('fill', '#6b7280').attr('font-size', 11)
+    .attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text(`μ = ${mu},  σ = ${sigma}`);
 
   gR.append('line')
     .attr('x1', 0).attr('x2', panelW)
     .attr('y1', ih).attr('y2', ih)
-    .attr('stroke', '#e5e7eb').attr('stroke-width', 1);
+    .attr('stroke', RULE).attr('stroke-width', 1);
 
-  gR.append('g').attr('transform', `translate(0,${ih})`)
+  const axisGR = gR.append('g').attr('transform', `translate(0,${ih})`)
     .call(d3.axisBottom(xR).ticks(5));
+  styleAxis(axisGR as d3.Selection<SVGGElement, unknown, null, undefined>);
 
   gR.append('text')
     .attr('x', panelW / 2).attr('y', ih + 44)
-    .attr('text-anchor', 'middle').attr('fill', '#6b7280').attr('font-size', 11)
+    .attr('text-anchor', 'middle').attr('fill', MUTED).style('font-family', MONO).attr('font-size', 11)
     .text('Predicted hits');
 }

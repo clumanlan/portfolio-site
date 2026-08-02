@@ -10,92 +10,31 @@ const posts = allPosts
     title: p.data.title,
     date: p.data.date,
     description: p.data.description,
-    tags: p.data.tags,
   }));
-
-const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
-const postsJson = JSON.stringify(posts);
-const tagsJson = JSON.stringify(allTags);
 ---
 
 <Base title="Blog — Carlyle Lumanlan">
   <div class="mb-10">
-    <h1 class="text-3xl font-semibold text-gray-900 mb-1" style="font-family: var(--font-heading)">Writing</h1>
-    <p class="text-gray-500 text-sm">learning is continuous, documenting is sporadic.</p>
-  </div>
-
-  <!-- Tag filter -->
-  <div id="tag-filter" class="flex flex-wrap gap-2 mb-8">
-    <button
-      data-tag="all"
-      class="tag-btn text-xs font-medium px-3 py-1.5 rounded-full border transition-colors"
-    >
-      All
-    </button>
-    {allTags.map((tag) => (
-      <button
-        data-tag={tag}
-        class="tag-btn text-xs font-medium px-3 py-1.5 rounded-full border transition-colors"
-      >
-        {tag}
-      </button>
-    ))}
+    <h1 class="text-2xl font-bold text-ink mb-1">Writing</h1>
+    <p class="text-muted text-sm">learning is continuous, documenting is sporadic.</p>
   </div>
 
   <!-- Post list -->
-  <ul id="post-list" class="space-y-8">
+  <ul class="space-y-8">
     {posts.map((post) => (
-      <li data-tags={post.tags.join(',')}>
-        <a href={`/blog/${post.slug}`} class="group block">
-          <div class="text-xs text-gray-400 mb-1">{post.date}</div>
-          <h2 class="font-medium text-gray-900 group-hover:text-accent transition-colors mb-1" style="color: inherit">
+      <li class="border-t border-rule pt-6">
+        <a href={`/blog/${post.slug}`} class="group block no-underline">
+          <div class="font-mono text-xs text-muted mb-1">{post.date}</div>
+          <h2 class="font-bold text-ink mb-1">
             {post.title}
           </h2>
-          <p class="text-sm text-gray-500 leading-relaxed mb-2">{post.description}</p>
-          <div class="flex flex-wrap gap-1.5">
-            {post.tags.map((tag) => (
-              <span class="text-xs px-2 py-0.5 rounded-full" style="background: #e0f5ec; color: #1a7a5e">
-                {tag}
-              </span>
-            ))}
-          </div>
+          <p class="text-sm text-muted leading-relaxed">{post.description}</p>
         </a>
       </li>
     ))}
   </ul>
 
   {posts.length === 0 && (
-    <p class="text-gray-500 text-sm">No posts yet.</p>
+    <p class="text-muted text-sm">No posts yet.</p>
   )}
 </Base>
-
-<script define:vars={{ postsJson, tagsJson }}>
-  const posts = JSON.parse(postsJson);
-  const MINT = '#1a7a5e';
-  const MINT_BG = '#e0f5ec';
-
-  let activeTag = 'all';
-
-  const buttons = document.querySelectorAll('.tag-btn');
-  const items = document.querySelectorAll('#post-list li');
-
-  function setActive(tag) {
-    activeTag = tag;
-    buttons.forEach((btn) => {
-      const isActive = btn.dataset.tag === tag;
-      btn.style.backgroundColor = isActive ? MINT_BG : '';
-      btn.style.color = isActive ? MINT : '#374151';
-      btn.style.borderColor = isActive ? MINT : '#e5e7eb';
-    });
-    items.forEach((item) => {
-      const tags = item.dataset.tags ? item.dataset.tags.split(',') : [];
-      item.style.display = tag === 'all' || tags.includes(tag) ? '' : 'none';
-    });
-  }
-
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => setActive(btn.dataset.tag));
-  });
-
-  setActive('all');
-</script>

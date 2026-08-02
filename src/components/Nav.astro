@@ -1,24 +1,22 @@
 ---
 const { pathname } = Astro.url;
-const MINT = '#1a7a5e';
 const isHome = pathname === '/';
 const isBlog = pathname.startsWith('/blog');
 ---
 
-<header class="w-full border-b border-gray-100">
+<header class="w-full border-b border-rule">
   <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center">
+    <a href="/" class="font-sue-ellen uppercase text-xl text-ink no-underline">Carlyle Lumanlan</a>
     <div class="ml-auto flex items-center gap-6">
       <a
         href="/#projects"
-        class="text-sm font-medium transition-colors"
-        style={`color: ${isHome ? MINT : '#000'}`}
+        class={`text-sm no-underline ${isHome ? 'font-semibold' : 'font-medium'} text-ink`}
       >
         Projects
       </a>
       <a
         href="/blog"
-        class="text-sm font-medium transition-colors"
-        style={`color: ${isBlog ? MINT : '#000'}`}
+        class={`text-sm no-underline ${isBlog ? 'font-semibold' : 'font-medium'} text-ink`}
       >
         Blog
       </a>

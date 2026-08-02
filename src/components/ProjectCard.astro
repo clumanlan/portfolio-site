@@ -10,22 +10,18 @@ interface Props {
 const { title, description, stack, github, demo } = Astro.props;
 ---
 
-<div id="projects" class="border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors">
-  <h3 class="text-xl font-semibold text-gray-900 mb-2" style="font-family: var(--font-heading)">{title}</h3>
-  <p class="text-gray-600 text-sm leading-relaxed mb-4">{description}</p>
-  <div class="flex flex-wrap gap-2 mb-5">
-    {stack.map((tech) => (
-      <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-accent-bg text-accent">
-        {tech}
-      </span>
-    ))}
+<div class="border-t border-rule pt-6">
+  <h2 class="text-xl font-bold text-ink mb-2">{title}</h2>
+  <p class="text-ink text-sm leading-relaxed mb-4">{description}</p>
+  <div class="font-mono text-xs text-muted mb-5">
+    {stack.join('   ·   ')}
   </div>
   <div class="flex gap-4">
     <a
       href={github}
       target="_blank"
       rel="noopener noreferrer"
-      class="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+      class="text-sm font-medium"
     >
       GitHub →
     </a>
@@ -33,7 +29,7 @@ const { title, description, stack, github, demo } = Astro.props;
       href={demo}
       target="_blank"
       rel="noopener noreferrer"
-      class="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+      class="text-sm font-medium"
     >
       Demo →
     </a>

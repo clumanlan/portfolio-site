@@ -6,10 +6,9 @@ interface Props {
   title: string;
   date: string;
   description: string;
-  tags: string[];
 }
 
-const { title, date, description, tags } = Astro.props;
+const { title, date, description } = Astro.props;
 ---
 
 <Base title={`${title} — Carlyle Lumanlan`} description={description} ogType="article">
@@ -25,22 +24,15 @@ const { title, date, description, tags } = Astro.props;
     <article class="max-w-2xl mx-auto">
       <!-- Header -->
       <header class="mb-10">
-        <div class="text-xs text-gray-400 mb-3">{date}</div>
-        <h1 class="text-3xl font-semibold text-gray-900 mb-3 leading-snug" style="font-family: var(--font-heading)">
+        <div class="font-mono text-xs text-muted mb-3">{date}</div>
+        <h1 class="text-3xl font-bold text-ink mb-3 leading-snug">
           {title}
         </h1>
-        <p class="text-gray-500 leading-relaxed mb-4">{description}</p>
-        <div class="flex flex-wrap gap-1.5">
-          {tags.map((tag) => (
-            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #e0f5ec; color: #1a7a5e">
-              {tag}
-            </span>
-          ))}
-        </div>
+        <p class="text-muted leading-relaxed">{description}</p>
       </header>
 
       <!-- MDX body -->
-      <div class="prose prose-gray max-w-none prose-headings:font-semibold prose-a:text-[#1a7a5e] prose-a:no-underline hover:prose-a:underline">
+      <div class="prose prose-gray max-w-none prose-headings:font-bold prose-a:text-ink">
         <slot />
       </div>
     </article>

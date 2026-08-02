@@ -35,7 +35,7 @@ export default function TOC() {
 
   return (
     <nav aria-label="Table of contents">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+      <p className="font-kalam text-sm text-muted mb-3">
         On this page
       </p>
       <ul className="space-y-1.5">
@@ -43,8 +43,9 @@ export default function TOC() {
           <li key={h.id} style={{ paddingLeft: h.level === 3 ? '0.75rem' : '0' }}>
             <a
               href={`#${h.id}`}
-              style={{ color: activeId === h.id ? '#1a7a5e' : '#6b7280' }}
-              className="text-sm leading-snug hover:text-gray-900 transition-colors block"
+              className={`text-sm leading-snug no-underline block ${
+                activeId === h.id ? 'text-ink font-semibold' : 'text-muted font-normal hover:text-ink'
+              }`}
             >
               {h.text}
             </a>

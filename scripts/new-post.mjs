@@ -25,7 +25,6 @@ writeFileSync(
 title: "${slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}"
 date: "${today}"
 description: "One or two sentences describing this post."
-tags: ["mlops"]
 draft: true
 ---
 

@@ -18,18 +18,23 @@ Personal portfolio and blog for Carlyle Lumanlan — data scientist transitionin
 
 ## Design tokens (never deviate from these)
 
-- **Heading font**: Fraunces (Google Fonts)
+Follows the `dataviz-portfolio-style` skill — editorial system built around chart conventions, Van Gogh-derived data palette.
+
+- **Paper/ink/rule/muted**: `--color-paper #F3F4F1`, `--color-ink #1C1F24`, `--color-rule #D8DAD3`, `--color-muted #6E7168`
+- **Data palette** (chart use only): `--color-petrol-teal #2E5C57`, `--color-vangogh-navy #28304F`, `--color-wheat-gold #A9863E`, `--color-olive #5B6B3E`, `--color-terracotta #B66C53`, `--color-cloud-grey #8A97A6`
 - **Body font**: Inter (Google Fonts)
-- **Accent color**: Dark mint — `#1a7a5e` (links, active nav, tags, hover states); tag background `#e0f5ec`
+- **Data font**: Space Mono — numbers, stats, dates, chart labels only, never prose
+- **Headline fonts**: plain bold Inter is the default for all headers. Nav name uses Sue Ellen Francisco (uppercase via CSS `text-transform`, not literal caps — avoids screen readers spelling it out) — **this typeface is outside the skill's defined set (Inter/Space Mono/Permanent Marker/Kalam), added by explicit user request.** Kalam and Permanent Marker are loaded but currently unused.
+- **Links**: ink text, rule-colored underline (darkens to ink on hover); no separate accent color
 - **Mode**: Light only
-- **Nav**: Projects + Blog right only — no name in nav (name lives in hero h1); GitHub + LinkedIn in footer
-- **No dark mode, no logo, no decorative elements**
+- **Nav**: name (Sue Ellen Francisco, uppercase, plain link, no underline) top left; Projects + Blog top right; GitHub + LinkedIn in footer
+- **No dark mode, no logo**; structure via hairline rules and spacing, not boxes/cards — see skill for the no-boxing rule
 
 ## Site structure
 
 ```
-/                  → hero (name + tagline) + project card
-/blog              → filterable post list (filter by tag, client-side)
+/                  → project card only (name lives in nav, no hero)
+/blog              → post list (date, title, description) — no tags, no filtering
 /blog/[slug]       → MDX post, sticky TOC left, narrow text column, D3 breaks to full width
 ```
 
@@ -49,7 +54,6 @@ Frontmatter schema:
 title: string
 date: string          // ISO format: "2025-06-01"
 description: string   // 1-2 sentences, shown in post list
-tags: string[]        // e.g. ["mlops", "data-viz", "systems"]
 draft: boolean        // true = excluded from build
 ```
 
@@ -99,10 +103,6 @@ The single featured project (MLB Baseball System) displays:
 - Title, description, tech stack tags, GitHub link
 - `featured: true` in frontmatter drives inclusion — no hardcoding
 - Demo URL is a placeholder — update `src/content/projects/mlb-baseball.md` when ready
-
-## Blog filtering
-
-Client-side only — no server, no API. Tags from frontmatter drive the filter UI. Active tag highlights in mint. "All" is the default state.
 
 ## Current status
 
