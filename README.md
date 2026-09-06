@@ -103,8 +103,7 @@ featured: boolean     // true = shown on homepage
 
 ```
 /
-├── public/
-│   └── favicon.svg                  ← mint rounded square with C initial
+├── public/                          ← no favicon by design (data: URI in Base.astro)
 ├── src/
 │   ├── components/
 │   │   ├── Nav.astro                ← Projects + Blog right, active in mint
