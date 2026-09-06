@@ -66,7 +66,7 @@ title: string
 description: string   // 2-3 sentences
 stack: string[]       // e.g. ["Python", "PyTorch", "AWS SageMaker"]
 github: string        // URL
-demo: string          // URL
+demo: string          // URL, optional — omit if there's no live demo
 featured: boolean     // true = shown on homepage
 ```
 
@@ -97,12 +97,12 @@ For full-width D3 breakouts:
 
 D3 visualizations must be responsive — use `ResizeObserver` or `useEffect` with a ref, never hardcode width/height.
 
-## Homepage project card
+## Homepage project cards
 
-The single featured project (MLB Baseball System) displays:
-- Title, description, tech stack tags, GitHub link
+Each project with `featured: true` renders as a card:
+- Title, description, tech stack tags, GitHub link, demo link (if `demo` is set)
 - `featured: true` in frontmatter drives inclusion — no hardcoding
-- Demo URL is a placeholder — update `src/content/projects/mlb-baseball.md` when ready
+- Currently featured: MLB Prop Research System, AP Lit Essay Grader
 
 ## Current status
 
@@ -119,7 +119,6 @@ The single featured project (MLB Baseball System) displays:
 - Dark mode
 - /about page
 - CMS (all content is MDX files for now)
-- Multiple projects (add more cards when ready, schema already supports it)
 - Search
 - Comments
 

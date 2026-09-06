@@ -4,7 +4,7 @@ interface Props {
   description: string;
   stack: string[];
   github: string;
-  demo: string;
+  demo?: string;
 }
 
 const { title, description, stack, github, demo } = Astro.props;
@@ -25,13 +25,15 @@ const { title, description, stack, github, demo } = Astro.props;
     >
       GitHub →
     </a>
-    <a
-      href={demo}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-sm font-medium"
-    >
-      Demo →
-    </a>
+    {demo && (
+      <a
+        href={demo}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm font-medium"
+      >
+        Demo →
+      </a>
+    )}
   </div>
 </div>

@@ -49,12 +49,12 @@ No /about page. No /projects page. Homepage is the landing and the launchpad.
 - **GitHub**: https://github.com/clumanlan
 - **LinkedIn**: https://www.linkedin.com/in/carlyle-lumanlan/
 
-### Featured project — MLB Baseball System
+### Featured projects
 
-- **Description**: Predicts individual batter and pitcher game performance
-- **Stack**: Python, NGBoost, PyTorch, AWS SageMaker, S3, Feature Store
-- **GitHub**: https://github.com/clumanlan/mlb
-- **Demo**: *(placeholder — add when ready)*
+- **MLB Prop Research System** — Python, XGBoost, AWS S3, FastAPI, React — [github.com/clumanlan/mlb](https://github.com/clumanlan/mlb)
+- **AP Lit Essay Grader** — Python, FastAPI, Claude API, React, PostgreSQL, AWS ECS — [github.com/clumanlan/aplit-grader](https://github.com/clumanlan/aplit-grader)
+
+Neither has a live demo yet — `demo` is optional in the project schema and the card only shows a Demo link when it's set.
 
 ### Content collection schemas
 
@@ -73,7 +73,7 @@ title: string
 description: string
 stack: string[]
 github: string
-demo: string
+demo: string           // optional
 featured: boolean     // true = shown on homepage
 ```
 
@@ -214,7 +214,7 @@ For full-width D3 breakouts:
 
 ## Open questions
 
-- What is the final demo URL for the MLB Baseball System? *(add to `src/content/projects/mlb-baseball.md` when ready)*
+- Live demo URLs for MLB Prop Research System and AP Lit Essay Grader *(add `demo:` to their content files when ready)*
 
 ---
 
@@ -223,6 +223,5 @@ For full-width D3 breakouts:
 - Dark mode — adds D3 color complexity, no clear benefit now
 - /about page — homepage hero is sufficient for now
 - CMS — MDX files + Claude Code is faster for a single author
-- Multiple projects — schema already supports it, add when ready
 - Search — not needed until there are many posts
 - Comments — not needed for v1

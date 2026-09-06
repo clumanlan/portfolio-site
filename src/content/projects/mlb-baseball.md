@@ -1,8 +1,7 @@
 ---
-title: MLB Baseball Prediction System
-description: Full-stack ML system that predicts individual batter and pitcher game performance. Combines NGBoost for probabilistic forecasting with a PyTorch deep learning model, served via AWS SageMaker with a feature store backed by S3.
-stack: ["Python", "NGBoost", "PyTorch", "AWS SageMaker", "S3", "Feature Store"]
+title: MLB Prop Research System
+description: ML system for MLB prop research — ingests game and betting-odds data into a point-in-time-safe feature store, then tests per-plate-appearance classifiers (hits, walks, strikeouts, batters faced) against a naive baseline.
+stack: ["Python", "AWS S3", "FastAPI", "Feature Store", "MLOps"]
 github: https://github.com/clumanlan/mlb
-demo: https://mlb-demo.vercel.app
 featured: true
 ---
