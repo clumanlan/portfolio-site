@@ -14,14 +14,6 @@ const { title, description, stack, github, demo, image } = Astro.props;
 <div class="border-t border-rule pt-6">
   <h2 class="text-xl font-bold text-ink mb-2">{title}</h2>
   <p class="text-ink text-sm leading-relaxed mb-4">{description}</p>
-  {image && (
-    <img
-      src={image}
-      alt={`${title} screenshot`}
-      loading="lazy"
-      class="max-w-xs w-full mb-4"
-    />
-  )}
   <div class="font-mono text-xs text-muted mb-5">
     {stack.join('   ·   ')}
   </div>
@@ -45,4 +37,12 @@ const { title, description, stack, github, demo, image } = Astro.props;
       </a>
     )}
   </div>
+  {image && (
+    <img
+      src={image}
+      alt={`${title} screenshot`}
+      loading="lazy"
+      class="max-w-xs w-full mx-auto mt-6"
+    />
+  )}
 </div>
