@@ -70,6 +70,11 @@ demo: string          // URL, optional — omit if there's no live demo
 featured: boolean     // true = shown on homepage
 ```
 
+## Writing rules (blog posts and all site copy)
+
+- **Never use em-dashes (—), en-dashes (–), or double hyphens (`--`) in prose.** Use periods, commas, colons, semicolons, or parentheses instead.
+- When editing an existing post, keep the author's wording and voice. Change only what was asked.
+
 ## D3 blog post workflow
 
 To create a new post:

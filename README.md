@@ -1,4 +1,4 @@
-# carlyle lumanlan — portfolio
+# carlyle lumanlan: portfolio
 
 Personal portfolio and technical blog. Built to showcase full-stack ML engineering work and document learning through D3-powered interactive posts.
 
@@ -8,7 +8,7 @@ Personal portfolio and technical blog. Built to showcase full-stack ML engineeri
 
 ## Why [frozen]
 
-**End goal**: A minimal, high-taste portfolio that documents a programming journey through projects and a growing body of technical writing — making the site itself evidence of the engineering capability it claims.
+**End goal**: A minimal, high-taste portfolio that documents a programming journey through projects and a growing body of technical writing, making the site itself evidence of the engineering capability it claims.
 
 **What this is not**: A resume site. Not a list of skills. The project and blog posts do the talking.
 
@@ -36,8 +36,8 @@ No /about page. No /projects page. Homepage is the landing and the launchpad.
 | Body font | Inter | Clean, readable, universal |
 | Accent color | Dark mint `#1a7a5e` | Grounded, uncommon, pairs well with Fraunces; tag bg `#e0f5ec` |
 | Color mode | Light only | D3 visualizations render in a known context |
-| Nav | Projects + Blog right only; GitHub + LinkedIn in footer | Name lives in hero — no redundancy in nav |
-| Homepage hero | Tagline only — no name heading | Name is in hero h1, not repeated in nav |
+| Nav | Projects + Blog right only; GitHub + LinkedIn in footer | Name lives in hero; no redundancy in nav |
+| Homepage hero | Tagline only, no name heading | Name is in hero h1, not repeated in nav |
 | Blog post layout | Narrow text column, D3 components break to full width | Readable prose, full-canvas viz |
 | TOC | Sticky left on blog posts | Makes long D3 posts navigable |
 | D3 organization | MDX + co-located `.tsx` component file per post | Self-contained, Claude Code can generate both in one shot |
@@ -51,10 +51,10 @@ No /about page. No /projects page. Homepage is the landing and the launchpad.
 
 ### Featured projects
 
-- **MLB Prop Research System** — Python, XGBoost, AWS S3, FastAPI, React — [github.com/clumanlan/mlb](https://github.com/clumanlan/mlb)
-- **AP Lit Essay Grader** — Python, FastAPI, Claude API, React, PostgreSQL, AWS ECS — [github.com/clumanlan/aplit-grader](https://github.com/clumanlan/aplit-grader)
+- **MLB Prop Research System**: Python, XGBoost, AWS S3, FastAPI, React ([github.com/clumanlan/mlb](https://github.com/clumanlan/mlb))
+- **AP Lit Essay Grader**: Python, FastAPI, Claude API, React, PostgreSQL, AWS ECS ([github.com/clumanlan/aplit-grader](https://github.com/clumanlan/aplit-grader))
 
-Neither has a live demo yet — `demo` is optional in the project schema and the card only shows a Demo link when it's set.
+Neither has a live demo yet. `demo` is optional in the project schema and the card only shows a Demo link when it's set.
 
 ### Content collection schemas
 
@@ -95,7 +95,7 @@ featured: boolean     // true = shown on homepage
 | Styling | Tailwind CSS v4 + @tailwindcss/typography |
 | Blog | MDX (`@astrojs/mdx`) |
 | D3 components | React islands (`@astrojs/react`), D3 v7 |
-| Fonts | Google Fonts — Fraunces + Inter |
+| Fonts | Google Fonts: Fraunces + Inter |
 | Hosting | Vercel (auto-deploy from `main`) |
 | Sitemap | `@astrojs/sitemap` |
 
@@ -143,8 +143,8 @@ npm run new-post -- --slug "my-post-title"
 ```
 
 Scaffolds:
-- `src/content/blog/my-post-title/index.mdx` — frontmatter pre-filled, date set to today
-- `src/content/blog/my-post-title/Chart.tsx` — D3 component starter with ResizeObserver
+- `src/content/blog/my-post-title/index.mdx`: frontmatter pre-filled, date set to today
+- `src/content/blog/my-post-title/Chart.tsx`: D3 component starter with ResizeObserver
 
 **Important**: use the `@blog` alias in MDX imports, not a relative path. Astro v7's content layer processes MDX from a virtual module URL so relative imports fail.
 
@@ -162,29 +162,29 @@ For full-width D3 breakouts:
 
 ### Phased plan
 
-#### Phase 1 — Foundation ✅
+#### Phase 1: Foundation ✅
 - [x] Astro 7 project with TypeScript strict, MDX, React, Tailwind v4
 - [x] Global CSS: mint accent vars, Fraunces + Inter via Google Fonts
-- [x] `Nav.astro` — Projects + Blog right; GitHub + LinkedIn in footer
+- [x] `Nav.astro`: Projects + Blog right; GitHub + LinkedIn in footer
 - [x] `Base.astro` layout
 - [x] Homepage: hero tagline, `ProjectCard.astro`
 - [x] Content collection schemas (`src/content.config.ts` with glob loaders)
 - [x] MLB Baseball project content file
 - [x] Deployed to Vercel, auto-deploy from `main` confirmed
 
-#### Phase 2 — Blog ✅
+#### Phase 2: Blog ✅
 - [x] `/blog` list page with client-side tag filter (mint active state)
 - [x] `/blog/[slug]` dynamic route
-- [x] `BlogPost.astro` layout — narrow prose, sticky TOC aside, full-bleed class
+- [x] `BlogPost.astro` layout: narrow prose, sticky TOC aside, full-bleed class
 - [x] `TOC.tsx` React island with IntersectionObserver active heading tracking
 - [x] `scripts/new-post.mjs` scaffold script wired as `npm run new-post`
 
-#### Phase 3 — First post ✅
+#### Phase 3: First post ✅
 - [x] NGBoost post: point predictions vs probability distributions
-- [x] Interactive D3 chart — training stages (Ames housing) + prediction comparison (MLB batter)
+- [x] Interactive D3 chart: training stages (Ames housing) + prediction comparison (MLB batter)
 - [x] Validated: `@blog` alias import, island hydration, TOC, full-bleed breakout, tag filtering
 
-#### Phase 4 — Polish ✅
+#### Phase 4: Polish ✅
 - [x] OG + Twitter meta tags on all pages (`og:type=article` on blog posts)
 - [x] Canonical URLs, site URL configured
 - [x] `@astrojs/sitemap` generating `sitemap-index.xml` at build
@@ -196,18 +196,18 @@ For full-width D3 breakouts:
 
 ### Definition of done
 
-**v1 is complete** ✅ — one real D3 blog post is live at clumanlan.com, the scaffold workflow is proven end-to-end, and the domain is live.
+**v1 is complete** ✅. One real D3 blog post is live at clumanlan.com, the scaffold workflow is proven end-to-end, and the domain is live.
 
 ---
 
 ## Decisions log
 
-- **2026-07-27** — Removed name from nav. Name lives in hero h1; nav link was redundant and looked heavy.
-- **2026-07-27** — Removed blog teaser from homepage. Blog is only accessible via nav link — keeps homepage focused on the project.
-- **2026-07-27** — Switched to `@blog` Vite alias for MDX component imports. Astro v7's content layer processes MDX from virtual module URLs, breaking relative `./Chart.tsx` imports.
-- **2026-07-27** — Used `src/content.config.ts` with glob loaders (Astro v7 requirement). Old `src/content/config.ts` is no longer supported.
-- **2026-07-27** — Domain: chose `clumanlan.com` over `clumanlan.dev` or `carlylelumanlan.dev`.
-- **2026-07-24** — Project scoped via alignment session. Stack, design tokens, site structure, content schemas, and phased plan locked.
+- **2026-07-27**: Removed name from nav. Name lives in hero h1; nav link was redundant and looked heavy.
+- **2026-07-27**: Removed blog teaser from homepage. Blog is only accessible via nav link; keeps homepage focused on the project.
+- **2026-07-27**: Switched to `@blog` Vite alias for MDX component imports. Astro v7's content layer processes MDX from virtual module URLs, breaking relative `./Chart.tsx` imports.
+- **2026-07-27**: Used `src/content.config.ts` with glob loaders (Astro v7 requirement). Old `src/content/config.ts` is no longer supported.
+- **2026-07-27**: Domain: chose `clumanlan.com` over `clumanlan.dev` or `carlylelumanlan.dev`.
+- **2026-07-24**: Project scoped via alignment session. Stack, design tokens, site structure, content schemas, and phased plan locked.
 
 ---
 
@@ -219,8 +219,8 @@ For full-width D3 breakouts:
 
 ## Deliberately deferred
 
-- Dark mode — adds D3 color complexity, no clear benefit now
-- /about page — homepage hero is sufficient for now
-- CMS — MDX files + Claude Code is faster for a single author
-- Search — not needed until there are many posts
-- Comments — not needed for v1
+- Dark mode: adds D3 color complexity, no clear benefit now
+- /about page: homepage hero is sufficient for now
+- CMS: MDX files + Claude Code is faster for a single author
+- Search: not needed until there are many posts
+- Comments: not needed for v1
